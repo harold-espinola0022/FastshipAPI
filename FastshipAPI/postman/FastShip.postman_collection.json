@@ -1,0 +1,77 @@
+{
+  "info": {
+    "name": "FastShip API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000/api/envios" }],
+  "item": [
+    {
+      "name": "1. Registrar envío",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pedidoId\": \"FS-001\",\n  \"remitente\": \"Tienda Lima Express\",\n  \"destinatario\": \"María Torres\",\n  \"direccionEntrega\": \"Av. Universitaria 15, Lima\"\n}"
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "2. Listar todos",
+      "request": { "method": "GET", "url": "{{baseUrl}}" }
+    },
+    {
+      "name": "3. Consultar activos",
+      "request": { "method": "GET", "url": "{{baseUrl}}/activos" }
+    },
+    {
+      "name": "4. Buscar por ID",
+      "request": { "method": "GET", "url": "{{baseUrl}}/FS-001" }
+    },
+    {
+      "name": "5. Actualizar estado a en_transito",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"estado\": \"en_transito\"\n}" },
+        "url": "{{baseUrl}}/FS-001/estado"
+      }
+    },
+    {
+      "name": "6. Actualizar estado a entregado",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"estado\": \"entregado\"\n}" },
+        "url": "{{baseUrl}}/FS-001/estado"
+      }
+    },
+    {
+      "name": "7. Actualizar datos",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"direccionEntrega\": \"San Miguel 10, Lima\"\n}" },
+        "url": "{{baseUrl}}/FS-001"
+      }
+    },
+    {
+      "name": "8. Error: estado inválido (400)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"estado\": \"perdido\"\n}" },
+        "url": "{{baseUrl}}/FS-001/estado"
+      }
+    },
+    {
+      "name": "9. Error: envío inexistente (404)",
+      "request": { "method": "GET", "url": "{{baseUrl}}/NO-EXISTE" }
+    },
+    {
+      "name": "10. Eliminar envío",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/FS-001" }
+    }
+  ]
+}
